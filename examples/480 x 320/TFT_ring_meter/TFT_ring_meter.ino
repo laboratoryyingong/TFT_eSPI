@@ -29,58 +29,6 @@ int d = 0; // Variable used for the sinewave test waveform
 bool range_error = 0;
 int8_t ramp = 1;
 
-void setup(void) {
-  tft.begin();
-  //Serial.begin(9600);
-  tft.setRotation(1);
-
-  tft.fillScreen(TFT_BLACK);
-}
-
-
-void loop() {
-  if (millis() - runTime >= 0L) { // Execute every TBD ms
-    runTime = millis();
-
-    // Test with a slowly changing value from a Sine function
-    //d += 4; if (d >= 360) d = 0;
-
-    // Set the the position, gap between meters, and inner radius of the meters
-    int xpos = 0, ypos = 5, gap = 4, radius = 52;
-
-    // Draw meter and get back x position of next meter
-
-    // Test with Sine wave function, normally reading will be from a sensor
-    //reading = 250 + 250 * sineWave(d+0);
-    //xpos = gap + ringMeter(reading, 0, 500, xpos, ypos, radius, "mA", GREEN2RED); // Draw analogue meter
-
-    //reading = 20 + 30 * sineWave(d+60);
-    //xpos = gap + ringMeter(reading, -10, 50, xpos, ypos, radius, "degC", BLUE2RED); // Draw analogue meter
-
-    //reading = 50 + 50 * sineWave(d + 120);
-    //ringMeter(reading, 0, 100, xpos, ypos, radius, "%RH", BLUE2BLUE); // Draw analogue meter
-
-
-    // Draw two more larger meters
-    //xpos = 20, ypos = 115, gap = 24, radius = 64;
-
-    //reading = 1000 + 150 * sineWave(d + 90);
-    //xpos = gap + ringMeter(reading, 850, 1150, xpos, ypos, radius, "mb", BLUE2RED); // Draw analogue meter
-
-    //reading = 15 + 15 * sineWave(d + 150);
-    //xpos = gap + ringMeter(reading, 0, 30, xpos, ypos, radius, "Volts", GREEN2GREEN); // Draw analogue meter
-
-    // Draw a large meter
-    xpos = 480/2 - 160, ypos = 0, gap = 15, radius = 170;
-    reading +=(ramp);
-    if (reading>98) ramp = -1;
-    if (reading<0) ramp = 1;
-    // Comment out above meters, then uncomment the next line to show large meter
-    ringMeter(reading,0,100, xpos,ypos,radius," Watts",GREEN2RED); // Draw analogue meter
-    if (reading<0) delay(1000);
-  }
-}
-
 // #########################################################################
 //  Draw the meter on the screen, returns x coord of righthand side
 // #########################################################################
@@ -277,5 +225,57 @@ void drawIcon(const unsigned short* icon, int16_t x, int16_t y, int8_t width, in
   }
 
   tft.endWrite();
+}
+
+void setup(void) {
+  tft.begin();
+  //Serial.begin(9600);
+  tft.setRotation(1);
+
+  tft.fillScreen(TFT_BLACK);
+}
+
+
+void loop() {
+  if (millis() - runTime >= 0L) { // Execute every TBD ms
+    runTime = millis();
+
+    // Test with a slowly changing value from a Sine function
+    //d += 4; if (d >= 360) d = 0;
+
+    // Set the the position, gap between meters, and inner radius of the meters
+    int xpos = 0, ypos = 5, gap = 4, radius = 52;
+
+    // Draw meter and get back x position of next meter
+
+    // Test with Sine wave function, normally reading will be from a sensor
+    //reading = 250 + 250 * sineWave(d+0);
+    //xpos = gap + ringMeter(reading, 0, 500, xpos, ypos, radius, "mA", GREEN2RED); // Draw analogue meter
+
+    //reading = 20 + 30 * sineWave(d+60);
+    //xpos = gap + ringMeter(reading, -10, 50, xpos, ypos, radius, "degC", BLUE2RED); // Draw analogue meter
+
+    //reading = 50 + 50 * sineWave(d + 120);
+    //ringMeter(reading, 0, 100, xpos, ypos, radius, "%RH", BLUE2BLUE); // Draw analogue meter
+
+
+    // Draw two more larger meters
+    //xpos = 20, ypos = 115, gap = 24, radius = 64;
+
+    //reading = 1000 + 150 * sineWave(d + 90);
+    //xpos = gap + ringMeter(reading, 850, 1150, xpos, ypos, radius, "mb", BLUE2RED); // Draw analogue meter
+
+    //reading = 15 + 15 * sineWave(d + 150);
+    //xpos = gap + ringMeter(reading, 0, 30, xpos, ypos, radius, "Volts", GREEN2GREEN); // Draw analogue meter
+
+    // Draw a large meter
+    xpos = 480/2 - 160, ypos = 0, gap = 15, radius = 170;
+    reading +=(ramp);
+    if (reading>98) ramp = -1;
+    if (reading<0) ramp = 1;
+    // Comment out above meters, then uncomment the next line to show large meter
+    ringMeter(reading,0,100, xpos,ypos,radius," Watts",GREEN2RED); // Draw analogue meter
+    if (reading<0) delay(1000);
+  }
 }
 

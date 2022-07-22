@@ -133,7 +133,7 @@ void touch_calibrate()
 
   // check file system exists
   if (!SPIFFS.begin()) {
-    Serial.println("Formatting file system");
+    Serial.println("Formating file system");
     SPIFFS.format();
     SPIFFS.begin();
   }

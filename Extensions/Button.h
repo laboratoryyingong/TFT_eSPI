@@ -6,7 +6,7 @@
 // within button
 ***************************************************************************************/
 
-class TFT_eSPI_Button : public TFT_eSPI {
+class TFT_eSPI_Button {
 
  public:
   TFT_eSPI_Button(void);
