@@ -21,7 +21,7 @@
 #ifdef USE_HSPI_PORT
   #define SPI_PORT HSPI
 #else
-  #define SPI_PORT VSPI
+  #define SPI_PORT SPI3_HOST
 #endif
 
 #ifdef RPI_DISPLAY_TYPE

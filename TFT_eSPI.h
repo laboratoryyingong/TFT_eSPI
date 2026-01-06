@@ -322,7 +322,7 @@ uint8_t overlap;     // ESP8266 overlap mode
   #if defined (USE_HSPI_PORT)
     uint8_t  port = HSPI;
   #else
-    uint8_t  port = VSPI;
+    uint8_t  port = SPI3_HOST;
   #endif
 #endif
 
