@@ -779,6 +779,53 @@ void TFT_eSPI::init(uint8_t tc)
 #endif
 }
 
+// modified
+void TFT_eSPI::initSplashmeTFT()
+{
+  spi.begin(TFT_SCLK, TFT_MISO, TFT_MOSI, -1);
+  lockTransaction = false;
+  inTransaction = false;
+  locked = true;
+  INIT_TFT_DATA_BUS;
+  pinMode(TFT_CS, OUTPUT);
+  digitalWrite(TFT_CS, HIGH); // Chip select high (inactive)
+  pinMode(TFT_DC, OUTPUT);
+  digitalWrite(TFT_DC, HIGH); // Data/Command high = data mode
+  /*---------------------------------------------
+   The master reset pin has already triggered and
+   should not set to on-off-on agin, if we do that it will reset 
+   other device, so remove this section.
+  -----------------------------------------------*/
+  // digitalWrite(TFT_RST, LOW);
+  // delay(5);
+  // digitalWrite(TFT_RST, LOW);
+  // delay(20);
+  // digitalWrite(TFT_RST, HIGH);
+  delay(150); // Wait for reset to complete
+  begin_tft_write();
+  // This loads the driver specific initialisation code  <<<<<<<<<<<<<<<<<<<<< ADD NEW DRIVERS TO THE LIST HERE <<<<<<<<<<<<<<<<<<<<<<<
+  #if defined(ILI9488_DRIVER)
+  #include "TFT_Drivers/ILI9488_Init.h"
+  #endif
+  #ifdef TFT_INVERSION_ON
+    writecommand(TFT_INVON);
+  #endif
+  #ifdef TFT_INVERSION_OFF
+    writecommand(TFT_INVOFF);
+  #endif
+    end_tft_write();
+    setRotation(rotation);
+  #if defined(TFT_BL) && defined(TFT_BACKLIGHT_ON)
+    pinMode(TFT_BL, OUTPUT);
+    digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+  #else
+  #if defined(TFT_BL) && defined(M5STACK)
+    // Turn on the back-light LED
+    pinMode(TFT_BL, OUTPUT);
+    digitalWrite(TFT_BL, HIGH);
+  #endif
+  #endif
+}
 
 /***************************************************************************************
 ** Function name:           setRotation
