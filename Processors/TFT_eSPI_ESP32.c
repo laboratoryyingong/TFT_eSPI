@@ -12,7 +12,7 @@
     SPIClass spi = SPIClass(HSPI);
   #else // use default VSPI port
     //SPIClass& spi = SPI;
-    SPIClass spi = SPIClass(VSPI);
+    SPIClass spi = SPIClass(SPI3_HOST);
   #endif
 #endif
 
