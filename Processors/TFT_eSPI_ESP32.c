@@ -11,8 +11,11 @@
   #ifdef USE_HSPI_PORT
     SPIClass spi = SPIClass(HSPI);
   #else // use default VSPI port
-    //SPIClass& spi = SPI;
-    SPIClass spi = SPIClass(VSPI);
+    
+    // Kevin changed    
+    SPIClass& spi = SPI;
+
+    // SPIClass spi = SPIClass(VSPI);
   #endif
 #endif
 
